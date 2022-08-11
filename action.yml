@@ -1,0 +1,47 @@
+name: Sponsor Labeler
+author: Daniel Cazzulino
+description: |
+    A GitHub Action that labels issues and pull requests if 
+    the creator is a sponsor.
+
+inputs:
+  label: 
+    description: The label to apply to the issue or pull request. Defaults to "sponsor ❤️".
+    required: false
+    default: 'sponsor ❤️'
+  gold-label: 
+    description: The label to apply when sponsor amount is above the gold-amount. Defaults to "sponsor 💛".
+    required: false
+    default: 'sponsor 💛'
+  gold-amount:
+    description: Sponsors over this amount are labeled with gold-label instead. Defaults to 100.
+    required: false
+    default: 100
+  sponsorable: 
+    description: The account to check for sponsorship. Defaults to the repository owner.
+    required: false
+    default: ${{ github.repository.owner }}
+  token:
+    description: The token to use for querying the GitHub API for sponsorship information. Typically set to ${{ secrets.GITHUB_TOKEN }}.
+    required: true
+
+branding:
+  icon: heart
+  color: purple
+
+runs:
+  using: "composite"
+  steps:
+    - run: echo "${{ github.action_path }}" >> $GITHUB_PATH
+      shell: bash
+    - name: ❤️ sponsor
+      shell: pwsh
+      env: 
+        SPONSORABLE: ${{ inputs.sponsorable }}
+        SPONSOR_LABEL: ${{ inputs.label }}
+        SPONSOR_GOLD_LABEL: ${{ inputs.gold-label }}
+        SPONSOR_GOLD_AMOUNT: ${{ inputs.gold-amount }}
+        SPONSOR_ACTOR: ${{ github.event.issue.user.node_id || github.event.pull_request.user.node_id }}
+        SPONSOR_ISSUE: ${{ github.event.issue.number || github.event.pull_request.number }}
+        GH_TOKEN: ${{ inputs.token }}
+      run: sponsor-labeler.ps1
