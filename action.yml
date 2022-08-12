@@ -20,7 +20,7 @@ inputs:
   sponsorable: 
     description: The account to check for sponsorship. Defaults to the repository owner.
     required: false
-    default: ${{ github.repository.owner }}
+    default: ${{ github.repository_owner }}
   token:
     description: The token to use for querying the GitHub API for sponsorship information. Typically set to secrets.GITHUB_TOKEN.
     required: true
