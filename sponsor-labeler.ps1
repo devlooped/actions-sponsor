@@ -27,7 +27,7 @@ $amount =
     select -ExpandProperty tier |
     select -ExpandProperty monthlyPriceInDollars
 
-if ($null -eq $monthly) {
+if ($null -eq $amount) {
     return
 }
 
