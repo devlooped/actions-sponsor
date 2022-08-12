@@ -12,7 +12,7 @@ env:
 
 jobs:
   sync:
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
     steps:
       - name: 🤖 defaults
         uses: devlooped/actions-bot@v1
