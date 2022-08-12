@@ -40,20 +40,26 @@ Minimal example, using default labels, repo owner and gold label threshold:
 
 ```yml
 name: sponsor ❤️
-on: [issues, pull_request]
+on: 
+  issues:
+    types: [opened, edited, reopened]
+  pull_request:
+    types: [opened, edited, synchronize, reopened]
 
 jobs:
   sponsor:
     runs-on: ubuntu-latest
     steps:
+      - name: 🤘 checkout
+        uses: actions/checkout@v2
+    
       - name: ❤️ sponsor 
         uses: devlooped/actions-sponsor@v1
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
 ```
 
-Full example overriding all values:
-
+Full example overriding all values (and running on *all* issue/PR events):
 
 ```yml
 name: sponsor ❤️
@@ -63,6 +69,9 @@ jobs:
   sponsor:
     runs-on: ubuntu-latest
     steps:
+      - name: 🤘 checkout
+        uses: actions/checkout@v2
+
       - name: ❤️ sponsor 
         uses: devlooped/actions-sponsor@v1
         with:

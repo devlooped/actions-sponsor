@@ -115,5 +115,5 @@ gh label create "$env:SPONSOR_LABEL" -c '#D4C5F9' -d 'Sponsor' || & { $global:LA
 $gold = [int]$env:SPONSOR_GOLD_AMOUNT
 $label = if ([int]$amount -ge $gold) { $env:SPONSOR_GOLD_LABEL } else { $env:SPONSOR_LABEL }
 
-Write-Output "Adding $label label to $env:SPONSOR_ISSUE."
+Write-Output "Adding $label label to #$env:SPONSOR_ISSUE."
 gh issue edit $env:SPONSOR_ISSUE --add-label "$label"
