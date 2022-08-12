@@ -26,9 +26,13 @@ or belongs to an organization that is.
     sponsorable: ''
 
     # The token to use for querying the GitHub API for sponsorship information. 
-    # Typically set to ${{ secrets.GITHUB_TOKEN }}.
+    # Typically set to ${{ secrets.GH_TOKEN }}.
     token: ''
 ```
+
+> NOTE: in order to detect the sponsorship tier to trigger gold sponsor labeling, 
+> the token must be an owner of the sponsorable organization. Otherwise, only   
+> base sponsoring is detected.
 
 ## Example
 

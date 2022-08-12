@@ -15,14 +15,21 @@ query($owner:  String!, $endCursor: String) {
 }
 ' || $(throw "Failed to query GH GraphQL API")
 
-$amount =
-    $query |
-    ConvertFrom-Json |
-    select @{ Name='nodes'; Expression={$_.data.organization.sponsorshipsAsMaintainer.nodes}} |
-    select -ExpandProperty nodes |
-    where { $_.sponsorEntity.id -eq $env:SPONSOR_SENDER_ID } |
-    select -ExpandProperty tier |
-    select -ExpandProperty monthlyPriceInDollars
+$sponsor = $query |
+  ConvertFrom-Json |
+  select @{ Name='nodes'; Expression={$_.data.organization.sponsorshipsAsMaintainer.nodes}} |
+  select -ExpandProperty nodes |
+  where { $_.sponsorEntity.id -eq $env:SPONSOR_SENDER_ID }
+  
+if ($sponsor -ne $null) {
+  $amount = select -ExpandProperty tier | select -ExpandProperty monthlyPriceInDollars
+  if ($amount -eq $null) {
+    # We have a sponsor, but we might not be able to get the tier amount if token 
+    # isn't owner of the sponsorable. Asume regular sponsors in that case.
+    $amount = 1
+    Write-Warning "Sponsor tier couldn't be read. Make sure token belongs to an owner of $env:SPONSORABLE."
+  }
+}
 
 if ($null -eq $amount) {
   # Try again with the organizations the user belongs to.
@@ -58,15 +65,25 @@ query ($user: String!, $endCursor: String) {
   }
   ' || $(throw "Failed to query GH GraphQL API")
 
-  $amount = $orgs |
+  $sponsor = $orgs |
     ConvertFrom-Json |
     select @{ Name='nodes'; Expression={$_.data.organization.sponsorshipsAsMaintainer.nodes}} |
     select -ExpandProperty nodes |
-    where { $_.sponsorEntity.id -in $userorgs } |
-    select -ExpandProperty tier |
-    sort-object -Property monthlyPriceInDollars -Descending |
-    select -ExpandProperty monthlyPriceInDollars -First 1
+    where { $_.sponsorEntity.id -in $userorgs }
 
+  if ($sponsor -ne $null) {
+    $amount = select -ExpandProperty tier |
+              sort-object -Property monthlyPriceInDollars -Descending |
+              select -ExpandProperty monthlyPriceInDollars -First 1
+
+    if ($amount -eq $null) {
+        # We have a sponsor, but we might not be able to get the tier amount if token 
+        # isn't owner of the sponsorable. Asume regular sponsors in that case.
+        $amount = 1
+        Write-Warning "Sponsor tier couldn't be read. Make sure token belongs to an owner of $env:SPONSORABLE."
+    }
+  }
+    
   if ($null -eq $amount) {    
     Write-Output "User $env:SPONSOR_SENDER_LOGIN is not a sponsor of $env:SPONSORABLE and none of their organizations are:"
     $user |
