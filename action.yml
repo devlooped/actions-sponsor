@@ -24,6 +24,10 @@ inputs:
   token:
     description: The token to use for querying the GitHub API for sponsorship information. Typically set to secrets.GH_TOKEN.
     required: true
+  verbose:
+    description: Whether to perform verbose logging when failing to find a sponsorship. Defaults to false.
+    required: false
+    default: false
 
 branding:
   icon: heart
@@ -44,5 +48,6 @@ runs:
         SPONSOR_SENDER_LOGIN: ${{ github.event.sender.login }}
         SPONSOR_SENDER_ID: ${{ github.event.sender.node_id }}
         SPONSOR_ISSUE: ${{ github.event.issue.number || github.event.pull_request.number }}
+        SPONSOR_VERBOSE: ${{ inputs.verbose }}
         GH_TOKEN: ${{ inputs.token }}
       run: sponsor-labeler.ps1

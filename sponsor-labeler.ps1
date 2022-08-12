@@ -1,3 +1,5 @@
+$verbose = [bool]::Parse($env:SPONSOR_VERBOSE ?? "false")
+
 $query = gh api graphql --paginate -f owner=$env:SPONSORABLE -f query='
 query($owner:  String!, $endCursor: String) {
   organization (login: $owner) {
@@ -85,20 +87,22 @@ query ($user: String!, $endCursor: String) {
   }
     
   if ($null -eq $amount) {    
-    Write-Output "User $env:SPONSOR_SENDER_LOGIN is not a sponsor of $env:SPONSORABLE and none of their organizations are:"
-    $user |
-      ConvertFrom-Json |
-      select @{ Name='nodes'; Expression={$_.data.user.organizations.nodes}} |
-      select -ExpandProperty nodes 
-      format-table
-    
-    Write-Output "`n$env:SPONSORABLE sponsoring organizations:"
-    $orgs |
-      ConvertFrom-Json |
-      select @{ Name='nodes'; Expression={$_.data.organization.sponsorshipsAsMaintainer.nodes}} |
-      select -ExpandProperty nodes |
-      select -ExpandProperty sponsorEntity |
-      format-table
+    Write-Output "User $env:SPONSOR_SENDER_LOGIN is not a sponsor of $env:SPONSORABLE and none of their organizations are."
+    if ($verbose) {
+      $user |
+        ConvertFrom-Json |
+        select @{ Name='nodes'; Expression={$_.data.user.organizations.nodes}} |
+        select -ExpandProperty nodes 
+        format-table
+      
+      Write-Output "`n$env:SPONSORABLE sponsoring organizations:"
+      $orgs |
+        ConvertFrom-Json |
+        select @{ Name='nodes'; Expression={$_.data.organization.sponsorshipsAsMaintainer.nodes}} |
+        select -ExpandProperty nodes |
+        select -ExpandProperty sponsorEntity |
+        format-table
+    }
 
     return
   } else {
