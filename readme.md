@@ -1,6 +1,7 @@
 # ❤️ sponsor
 
-A GitHub Action that labels issues and pull requests if the creator is a sponsor.
+A GitHub Action that labels issues and pull requests if the creator is a sponsor, 
+or belongs to an organization that is.
 
 ## Usage
 

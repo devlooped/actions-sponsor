@@ -22,7 +22,7 @@ inputs:
     required: false
     default: ${{ github.repository_owner }}
   token:
-    description: The token to use for querying the GitHub API for sponsorship information. Typically set to secrets.GITHUB_TOKEN.
+    description: The token to use for querying the GitHub API for sponsorship information. Typically set to secrets.GH_TOKEN.
     required: true
 
 branding:
@@ -41,7 +41,8 @@ runs:
         SPONSOR_LABEL: ${{ inputs.label }}
         SPONSOR_GOLD_LABEL: ${{ inputs.gold-label }}
         SPONSOR_GOLD_AMOUNT: ${{ inputs.gold-amount }}
-        SPONSOR_ACTOR: ${{ github.event.issue.user.node_id || github.event.pull_request.user.node_id }}
+        SPONSOR_SENDER_LOGIN: ${{ github.event.sender.login }}
+        SPONSOR_SENDER_ID: ${{ github.event.sender.node_id }}
         SPONSOR_ISSUE: ${{ github.event.issue.number || github.event.pull_request.number }}
         GH_TOKEN: ${{ inputs.token }}
       run: sponsor-labeler.ps1
