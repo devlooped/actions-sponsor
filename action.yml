@@ -22,7 +22,7 @@ inputs:
     required: false
     default: ${{ github.repository.owner }}
   token:
-    description: The token to use for querying the GitHub API for sponsorship information. Typically set to ${{ secrets.GITHUB_TOKEN }}.
+    description: The token to use for querying the GitHub API for sponsorship information. Typically set to secrets.GITHUB_TOKEN.
     required: true
 
 branding:
