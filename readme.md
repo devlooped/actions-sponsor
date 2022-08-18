@@ -49,6 +49,7 @@ on:
 jobs:
   sponsor:
     runs-on: ubuntu-latest
+    if: ${{ !endsWith(github.event.sender.login, '[bot]') && !endsWith(github.event.sender.login, 'bot') }}      
     steps:
       - name: 🤘 checkout
         uses: actions/checkout@v2
@@ -56,8 +57,10 @@ jobs:
       - name: ❤️ sponsor 
         uses: devlooped/actions-sponsor@v1
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.GH_TOKEN }}
 ```
+
+> NOTE: you will typically want to skip running the workflow at all for bot accounts, hence the `if` above.
 
 Full example overriding all values (and running on *all* issue/PR events):
 
@@ -68,6 +71,7 @@ on: [issues, pull_request]
 jobs:
   sponsor:
     runs-on: ubuntu-latest
+    if: ${{ !endsWith(github.event.sender.login, '[bot]') && !endsWith(github.event.sender.login, 'bot') }}      
     steps:
       - name: 🤘 checkout
         uses: actions/checkout@v2
