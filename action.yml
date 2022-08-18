@@ -39,7 +39,7 @@ runs:
     - run: echo "${{ github.action_path }}" >> $GITHUB_PATH
       shell: bash
     - name: ❤️ sponsor
-      if: ${{ !endsWith(github.event.sender.login, '[bot]') && !endsWith(github.event.sender.login, 'bot') }}
+      if: ${{ !endsWith(github.event.sender.login, '[bot]') }}
       shell: pwsh
       env: 
         SPONSORABLE: ${{ inputs.sponsorable }}
