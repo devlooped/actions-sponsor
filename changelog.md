@@ -1,8 +1,16 @@
 # Changelog
 
-## [v1](https://github.com/devlooped/actions-sponsor/tree/v1) (2022-08-12)
+## [v1](https://github.com/devlooped/actions-sponsor/tree/v1) (2022-08-18)
 
-[Full Changelog](https://github.com/devlooped/actions-sponsor/compare/v1.0.1...v1)
+[Full Changelog](https://github.com/devlooped/actions-sponsor/compare/v1.0.2...v1)
+
+## [v1.0.2](https://github.com/devlooped/actions-sponsor/tree/v1.0.2) (2022-08-18)
+
+[Full Changelog](https://github.com/devlooped/actions-sponsor/compare/v1.0.1...v1.0.2)
+
+**Implemented enhancements:**
+
+- Don't try to label bot users [\#2](https://github.com/devlooped/actions-sponsor/issues/2)
 
 ## [v1.0.1](https://github.com/devlooped/actions-sponsor/tree/v1.0.1) (2022-08-12)
 
