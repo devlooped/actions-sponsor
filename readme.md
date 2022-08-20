@@ -1,4 +1,4 @@
-# ❤️ sponsor
+# 💜 sponsor
 
 A GitHub Action that labels issues and pull requests if the creator is a sponsor, 
 or belongs to an organization that is.
@@ -6,11 +6,11 @@ or belongs to an organization that is.
 ## Usage
 
 ```
-- name: ❤️ sponsor
+- name: 💜 sponsor
   uses: devlooped/actions-sponsor@v1
   with:
     # The label to apply to the issue or pull request. 
-    # Defaults to "sponsor ❤️".
+    # Defaults to "sponsor 💜".
     label: ''
 
     # The label to apply when sponsor amount is above the gold-amount. 
@@ -39,7 +39,7 @@ or belongs to an organization that is.
 Minimal example, using default labels, repo owner and gold label threshold:
 
 ```yml
-name: sponsor ❤️
+name: sponsor 💜
 on: 
   issues:
     types: [opened, edited, reopened]
@@ -54,7 +54,7 @@ jobs:
       - name: 🤘 checkout
         uses: actions/checkout@v2
     
-      - name: ❤️ sponsor 
+      - name: 💜 sponsor 
         uses: devlooped/actions-sponsor@v1
         with:
           token: ${{ secrets.GH_TOKEN }}
@@ -65,7 +65,7 @@ jobs:
 Full example overriding all values (and running on *all* issue/PR events):
 
 ```yml
-name: sponsor ❤️
+name: sponsor 💜
 on: [issues, pull_request]
 
 jobs:
@@ -76,7 +76,7 @@ jobs:
       - name: 🤘 checkout
         uses: actions/checkout@v2
 
-      - name: ❤️ sponsor 
+      - name: 💜 sponsor 
         uses: devlooped/actions-sponsor@v1
         with:
           label: sponsor

@@ -8,7 +8,7 @@ inputs:
   label: 
     description: The label to apply to the issue or pull request. Defaults to "sponsor ❤️".
     required: false
-    default: 'sponsor ❤️'
+    default: 'sponsor 💜'
   gold-label: 
     description: The label to apply when sponsor amount is above the gold-amount. Defaults to "sponsor 💛".
     required: false
@@ -38,7 +38,7 @@ runs:
   steps:
     - run: echo "${{ github.action_path }}" >> $GITHUB_PATH
       shell: bash
-    - name: ❤️ sponsor
+    - name: 💜 sponsor
       if: ${{ !endsWith(github.event.sender.login, '[bot]') }}
       shell: pwsh
       env: 
