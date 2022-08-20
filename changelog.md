@@ -1,8 +1,16 @@
 # Changelog
 
-## [v1](https://github.com/devlooped/actions-sponsor/tree/v1) (2022-08-18)
+## [v1](https://github.com/devlooped/actions-sponsor/tree/v1) (2022-08-20)
 
-[Full Changelog](https://github.com/devlooped/actions-sponsor/compare/v1.0.2...v1)
+[Full Changelog](https://github.com/devlooped/actions-sponsor/compare/v1.0.3...v1)
+
+## [v1.0.3](https://github.com/devlooped/actions-sponsor/tree/v1.0.3) (2022-08-20)
+
+[Full Changelog](https://github.com/devlooped/actions-sponsor/compare/v1.0.2...v1.0.3)
+
+**Merged pull requests:**
+
+- +Mᐁ includes [\#3](https://github.com/devlooped/actions-sponsor/pull/3) ([devlooped-bot](https://github.com/devlooped-bot))
 
 ## [v1.0.2](https://github.com/devlooped/actions-sponsor/tree/v1.0.2) (2022-08-18)
 
