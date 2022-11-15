@@ -6,7 +6,7 @@ description: |
 
 inputs:
   label: 
-    description: The label to apply to the issue or pull request. Defaults to "sponsor ❤️".
+    description: The label to apply to the issue or pull request. Defaults to "sponsor 💜".
     required: false
     default: 'sponsor 💜'
   gold-label: 
