@@ -2,13 +2,25 @@ name: Sponsor Labeler
 author: Daniel Cazzulino
 description: |
     A GitHub Action that labels issues and pull requests if 
-    the creator is a sponsor.
+    the creator is a sponsor (directly or indirectly via org or contributions).
 
 inputs:
   label: 
-    description: The label to apply to the issue or pull request. Defaults to "sponsor 💜".
+    description: The default sponsor label to apply to the issue or pull request. Defaults to "sponsor 💜".
     required: false
     default: 'sponsor 💜'
+  contrib-label: 
+    description: The label to apply to the issue or pull request for past contributors. Defaults to "sponsor 💚".
+    required: false
+    default: 'sponsor 💚'
+  silver-label: 
+    description: The label to apply when sponsor amount is above the silver-amount. Defaults to "sponsor 🤍".
+    required: false
+    default: 'sponsor 🤍'
+  silver-amount:
+    description: Sponsors over this amount are labeled with silver-label instead. Defaults to 50.
+    required: false
+    default: 50
   gold-label: 
     description: The label to apply when sponsor amount is above the gold-amount. Defaults to "sponsor 💛".
     required: false
@@ -39,11 +51,14 @@ runs:
     - run: echo "${{ github.action_path }}" >> $GITHUB_PATH
       shell: bash
     - name: 💜 sponsor
-      if: ${{ !endsWith(github.event.sender.login, '[bot]') }}
+      if: ${{ !endsWith(github.event.sender.login, '[bot]') && github.event.sender.login != inputs.sponsorable }}
       shell: pwsh
       env: 
         SPONSORABLE: ${{ inputs.sponsorable }}
         SPONSOR_LABEL: ${{ inputs.label }}
+        SPONSOR_CONTRIB_LABEL: ${{ inputs.contrib-label }}
+        SPONSOR_SILVER_LABEL: ${{ inputs.silver-label }}
+        SPONSOR_SILVER_AMOUNT: ${{ inputs.silver-amount }}
         SPONSOR_GOLD_LABEL: ${{ inputs.gold-label }}
         SPONSOR_GOLD_AMOUNT: ${{ inputs.gold-amount }}
         SPONSOR_SENDER_LOGIN: ${{ github.event.sender.login }}
